@@ -1,0 +1,52 @@
+{% extends 'landing/layout.html.twig' %}
+
+{% block title %}Anmelden{% endblock %}
+
+{% block main %}
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Kundenlogin</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" method="POST">
+                {% if error %}
+                    <div class="rounded-md bg-red-50 p-4 text-sm text-red-700">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+                {% if app.user %}
+                    <div class="rounded-md bg-green-50 p-4 text-sm text-green-700">
+                        Sie sind bereits als <i>{{ app.user.userIdentifier }}</i> angemeldet, <a href="{{ path('logout') }}">jetzt abmelden</a>.
+                    </div>
+                {% endif %}
+                <div>
+                    <label for="username" class="block text-sm/6 font-medium text-gray-900">E-Mail-Adresse</label>
+                    <div class="mt-2">
+                        <input type="email" name="_username" id="username" autocomplete="email" value="{{ last_username }}" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-primary placeholder:text-gray-400 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="password" class="block text-sm/6 font-medium text-gray-900">Passwort</label>
+                    </div>
+                    <div class="mt-2">
+                        <input type="password" name="_password" id="password" autocomplete="current-password" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-primary placeholder:text-gray-400 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <input type="checkbox" name="_remember_me" id="rememberMe" checked="checked" class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary">
+                    <label for="rememberMe" class="ml-2 block text-sm text-gray-900">Anmeldung merken</label>
+                </div>
+
+                <div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <button type="submit" class="flex w-full justify-center rounded-md text-white bg-primary-700 hover:bg-primary-800 px-3 py-1.5 text-sm/6 font-semibold shadow-sm">Anmelden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

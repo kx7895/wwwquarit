@@ -1,0 +1,69 @@
+{% extends 'landing/layout.html.twig' %}
+
+{% block title %}Impressum{% endblock %}
+
+{% block main %}
+    <script src="{{ asset('js/ece.js') }}"></script>
+
+    <div class="flex items-center justify-center min-h-screen px-4 py-8 bg-gray-100 dark:bg-primary-900">
+        <div class="max-w-4xl w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 sm:p-10">
+            <!-- Logo -->
+            <a href="{{ path('landing_index') }}">
+                <picture>
+                    <source srcset="{{ asset('images/logo/Q-White.png') }}" media="(prefers-color-scheme: dark)">
+                    <img src="{{ asset('images/logo/Q.png') }}" alt="QuarGroup Logo" class="mx-auto mb-6 max-w-[100px] sm:max-w-[120px]">
+                </picture>
+            </a>
+
+            <!-- Heading -->
+            <h2 class="text-base sm:text-xl font-semibold text-primary dark:text-white mb-6">
+                Impressum
+            </h2>
+
+            <!-- Impressum Content -->
+            <div class="text-sm sm:text-base text-gray-600 dark:text-gray-400 space-y-4 leading-relaxed">
+                <p><strong>Quarin GmbH</strong></p>
+                <p>
+                    Oberallmendstrasse 18<br>
+                    6300 Zug<br>
+                    Schweiz
+                </p>
+                <p>
+                    <strong>Kontakt</strong><br>
+                    E-Mail: <span id="ece">Für diese Funktion ist JavaScript notwendig</span><br>
+                    Telefon: +49 15678 994791
+                </p>
+
+                <p>
+                    <strong>Vertretungsberechtigte Personen</strong><br>
+                    Konstantin Bingmann
+                </p>
+                <p>
+                    <strong>UID:</strong> CHE-215466578<br>
+                    <strong>MwSt-Nr.:</strong> CHE-215466578 MWST
+                </p>
+            </div>
+
+            <!-- Footer Links -->
+            <footer class="text-xs text-gray-600 dark:text-gray-400 mt-8">
+                <ul class="flex flex-wrap justify-center space-x-2 sm:space-x-3">
+                    <li>&copy; {{ "now"|date("Y") }} Quarin GmbH</li>
+                    <li><a href="{{ path('landing_index') }}" class="hover:text-primary-900 dark:hover:text-primary-300">Startseite</a></li>
+                    <li><a href="{{ path('landing_imprint') }}" class="hover:text-primary-900 dark:hover:text-primary-300">Impressum</a></li>
+                    <li><a href="{{ path('landing_privacy') }}" class="hover:text-primary-900 dark:hover:text-primary-300">Datenschutzerklärung</a></li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            updateContact(
+                '{{ path('landing_quarit_email') }}',
+                'ece',
+                '{{ path('landing_imprint') }}',
+                'innerHTML'
+            );
+        });
+    </script>
+{% endblock %}

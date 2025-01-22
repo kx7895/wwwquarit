@@ -1,0 +1,101 @@
+{% extends 'landing/layout.html.twig' %}
+
+{% block title %}Willkommen{% endblock %}
+
+{% block main %}
+    <script src="{{ asset('js/ece.js') }}"></script>
+
+    <div class="flex items-center justify-center min-h-screen px-4 py-8 bg-gray-100 dark:bg-primary-900">
+        <div class="text-center max-w-xl w-full bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 sm:p-8">
+            <!-- Logo -->
+            <picture>
+                <source srcset="{{ asset('images/logo/Q-White.png') }}" media="(prefers-color-scheme: dark)">
+                <img src="{{ asset('images/logo/Q.png') }}" alt="QuarGroup Logo" class="mx-auto mb-6 max-w-[100px] sm:max-w-[120px]">
+            </picture>
+
+            <!-- Heading -->
+            <h1 class="text-3xl sm:text-4xl font-bold text-primary dark:text-white mb-3">QuarIT</h1>
+            <h2 class="text-base sm:text-xl font-semibold text-primary dark:text-white mb-6">
+                Innovativ. Zuverlässig. Sicher.
+            </h2>
+
+            <!-- Description -->
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3">
+                Seit 2015 sind wir Ihr Partner für die Entwicklung, den Betrieb und die Absicherung von IT-Systemen. Gemeinsam mit Ihnen gestalten unsere Berater und Entwickler massgeschneiderte Lösungen die Ihr Unternehmen nachhaltig voranbringen.
+            </p>
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-6">
+                Diese Webseite ist in Arbeit – gerne halten wir Sie auf dem Laufenden und informieren Sie, sobald es Neuigkeiten gibt.
+            </p>
+
+            <!-- Newsletter Form -->
+            {{ form_start(form) }}
+            <div class="mb-8">
+                <h3 class="text-base sm:text-lg font-semibold text-primary dark:text-white mb-3">Bleiben Sie informiert</h3>
+                {% for message in app.flashes('success') %}
+                    <div class="bg-green-100 text-green-800 p-4 rounded-md mb-4">
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="bg-red-100 text-red-800 p-4 rounded-md mb-4">
+                        <strong>{{ message }}</strong>
+                    </div>
+                {% endfor %}
+                <label for="email" class="sr-only">E-Mail-Adresse</label>
+                <div class="flex flex-col items-center sm:flex-row sm:justify-center sm:space-x-2">
+                    {{ form_widget(form.email, {
+                        'id': 'email',
+                        'attr': {
+                            'type': 'email',
+                            'placeholder': 'Ihre E-Mail-Adresse',
+                            'required': 'required',
+                            'class': 'w-full sm:w-64 px-3 py-2 mb-4 sm:mb-0 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-200 dark:focus:ring-primary-600 dark:bg-gray-800 dark:text-white h-[2.5rem]'
+                        }
+                    }) }}
+                    <button type="submit" class="w-full sm:w-auto bg-primary-700 text-white px-6 py-2 rounded-md hover:bg-primary-900 dark:bg-gray-900 dark:hover:bg-gray-700 transition duration-200 h-[2.5rem]">
+                        Jetzt anmelden
+                    </button>
+                </div>
+                <p class="text-xs text-gray-600 dark:text-gray-400 mt-2">
+                    Ihre Daten werden gemäß unserer
+                    <a href="{{ path('landing_privacy') }}" class="text-primary hover:text-primary-900 dark:text-gray-300 dark:hover:text-primary-300">Datenschutzerklärung</a>
+                    verarbeitet.
+                </p>
+            </div>
+            {{ form_end(form) }}
+
+            <!-- Kontaktmöglichkeit -->
+            <div class="bg-primary-50 dark:bg-gray-700 p-4 rounded-md mb-8">
+                <h3 class="text-base sm:text-lg font-semibold text-primary dark:text-white">
+                    Haben Sie Fragen oder eine Projektanfrage?
+                </h3>
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">
+                    Kontaktieren Sie uns, wir freuen uns auf Ihre Nachricht!
+                </p>
+                <a href="" class="block w-full sm:w-auto bg-primary-700 text-white px-6 py-2 rounded-md hover:bg-primary-900 dark:bg-gray-900 dark:hover:bg-gray-800 transition duration-200 text-center" id="contact-button">
+                    Kontakt aufnehmen
+                </a>
+            </div>
+
+            <!-- Footer Links -->
+            <footer class="text-xs text-gray-600 dark:text-gray-400">
+                <ul class="flex flex-wrap justify-center space-x-2 sm:space-x-3">
+                    <li>&copy; {{ "now"|date("Y") }} Quarin GmbH</li>
+                    <li><a href="{{ path('landing_imprint') }}" class="hover:text-primary-900 dark:hover:text-primary-300">Impressum</a></li>
+                    <li><a href="{{ path('landing_privacy') }}" class="hover:text-primary-900 dark:hover:text-primary-300">Datenschutzerklärung</a></li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            updateContact(
+                '{{ path('landing_quarit_email') }}',
+                'contact-button',
+                '{{ path('landing_imprint') }}',
+                'href'
+            );
+        });
+    </script>
+{% endblock %}
